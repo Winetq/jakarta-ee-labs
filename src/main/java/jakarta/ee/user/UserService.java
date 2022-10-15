@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 @NoArgsConstructor
@@ -17,8 +18,8 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User find(Long id) {
-        return repository.find(id).get();
+    public Optional<User> find(Long id) {
+        return repository.find(id);
     }
 
     public List<User> findAll() {
