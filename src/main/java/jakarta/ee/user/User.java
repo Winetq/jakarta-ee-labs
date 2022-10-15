@@ -26,4 +26,7 @@ public class User {
 
     @Getter
     private Role role;
+
+    @Getter
+    private byte[] avatar;
 }

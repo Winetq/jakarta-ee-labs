@@ -43,8 +43,10 @@ public class UserServlet extends HttpServlet {
         if (Paths.USERS.equals(servletPath)) {
             if (path.matches(Patterns.USER)) {
                 getUser(path, response);
-            } else {
+            } else if (path.isEmpty()) {
                 getUsers(response);
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         }
     }
