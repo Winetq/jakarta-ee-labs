@@ -1,12 +1,29 @@
 package jakarta.ee.user;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@AllArgsConstructor
 public class User {
+    @Getter
+    private final Long id;
+
+    @Getter
     private String name;
+
+    @Getter
     private String surname;
-    private LocalDate birthday;
+
+    @Getter
+    private final LocalDate birthday;
+
+    @Getter
     private String login;
+
     private String password;
+
+    @Getter
     private Role role;
 }

@@ -3,13 +3,4 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-<!--    <listener>-->
-<!--        <listener-class>pl.edu.pg.eti.kask.rpg.configuration.CreateDataSource</listener-class>-->
-<!--    </listener>-->
-
-
-<!--    <listener>-->
-<!--        <listener-class>pl.edu.pg.eti.kask.rpg.configuration.CreateServices</listener-class>-->
-<!--    </listener>-->
-
 </web-app>

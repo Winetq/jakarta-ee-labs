@@ -1,6 +1,6 @@
 package jakarta.ee.user;
 
-enum Role {
+public enum Role {
     USER,
     ADMIN
 }
