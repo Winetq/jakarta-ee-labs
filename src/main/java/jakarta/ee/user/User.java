@@ -2,6 +2,7 @@ package jakarta.ee.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -28,5 +29,6 @@ public class User {
     private Role role;
 
     @Getter
+    @Setter
     private byte[] avatar;
 }
