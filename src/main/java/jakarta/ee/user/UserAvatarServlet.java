@@ -10,10 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = UserAvatarServlet.Paths.AVATARS + "/*")
@@ -42,16 +40,14 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (isCorrectUrl(request)) {
-            getAvatar(request, response);
+            getAvatarForUser(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void getAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String path = ServletUtility.parseRequestPath(request);
-        Long id = Long.parseLong(path.replaceAll("/", ""));
-        Optional<User> user = service.find(id);
+    private void getAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Optional<User> user = findUserById(request);
         if (user.isPresent()) {
             byte[] avatar = user.get().getAvatar();
             response.addHeader(HttpHeaders.CONTENT_TYPE, MimeTypes.IMAGE_PNG);
@@ -65,18 +61,16 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (isCorrectUrl(request)) {
-            deleteAvatar(request, response);
+            deleteAvatarForUser(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void deleteAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String path = ServletUtility.parseRequestPath(request);
-        Long id = Long.parseLong(path.replaceAll("/", ""));
-        Optional<User> user = service.find(id);
+    private void deleteAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Optional<User> user = findUserById(request);
         if (user.isPresent()) {
-            user.get().setAvatar(new byte[0]);
+            service.deleteAvatar(user.get());
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -86,22 +80,16 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (isCorrectUrl(request)) {
-            putAvatar(request, response);
+            putAvatarForUser(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void putAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String path = ServletUtility.parseRequestPath(request);
-        Long id = Long.parseLong(path.replaceAll("/", ""));
-        Optional<User> user = service.find(id);
+    private void putAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Optional<User> user = findUserById(request);
         if (user.isPresent()) {
-            Part avatar = request.getPart(Parameters.AVATAR);
-            if (avatar != null) {
-                InputStream is = avatar.getInputStream();
-                user.get().setAvatar(is.readAllBytes());
-            }
+            service.updateAvatar(user.get(), request.getPart(Parameters.AVATAR));
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -111,23 +99,17 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (isCorrectUrl(request)) {
-            postAvatar(request, response);
+            postAvatarForUser(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void postAvatar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = ServletUtility.parseRequestPath(request);
-        Long id = Long.parseLong(path.replaceAll("/", ""));
-        Optional<User> user = service.find(id);
+    private void postAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Optional<User> user = findUserById(request);
         if (user.isPresent()) {
-            if (user.get().getAvatar().length == 0) {
-                Part avatar = request.getPart(Parameters.AVATAR);
-                if (avatar != null) {
-                    InputStream is = avatar.getInputStream();
-                    user.get().setAvatar(is.readAllBytes());
-                }
+            if (user.get().getAvatarFileName().isEmpty()) {
+                service.createAvatar(user.get(), request.getPart(Parameters.AVATAR));
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -141,6 +123,12 @@ public class UserAvatarServlet extends HttpServlet {
         String path = ServletUtility.parseRequestPath(request);
         String servletPath = request.getServletPath();
         return Paths.AVATARS.equals(servletPath) && path.matches(Patterns.AVATAR);
+    }
+
+    private Optional<User> findUserById(HttpServletRequest request) {
+        String path = ServletUtility.parseRequestPath(request);
+        Long id = Long.parseLong(path.replaceAll("/", ""));
+        return service.find(id);
     }
 
 }

@@ -30,5 +30,9 @@ public class User {
 
     @Getter
     @Setter
+    private String avatarFileName;
+
+    @Getter
+    @Setter
     private byte[] avatar;
 }

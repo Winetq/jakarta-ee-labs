@@ -27,13 +27,13 @@ public class DataInitializer {
 
     private synchronized void init() {
         userService.create(new User(1L, "User", "One", LocalDate.of(1999, 9, 9),
-                "admin", "admin", Role.USER, getResourceAsByteArray("avatar/calvian.png")));
+                "admin", "admin", Role.USER, "calvian.png", getResourceAsByteArray("avatar/calvian.png")));
         userService.create(new User(2L, "User", "Two", LocalDate.of(1989, 3, 27),
-                "admin", "admin", Role.USER, getResourceAsByteArray("avatar/uhlbrecht.png")));
+                "admin", "admin", Role.USER, "uhlbrecht.png", getResourceAsByteArray("avatar/uhlbrecht.png")));
         userService.create(new User(3L, "User", "Three", LocalDate.of(1998, 12, 12),
-                "admin", "admin", Role.USER, getResourceAsByteArray("avatar/eloise.png")));
+                "admin", "admin", Role.USER, "eloise.png", getResourceAsByteArray("avatar/eloise.png")));
         userService.create(new User(4L, "User", "Four", LocalDate.of(2000, 2, 24),
-                "admin", "admin", Role.USER, getResourceAsByteArray("avatar/zereni.png")));
+                "admin", "admin", Role.USER, "zereni.png", getResourceAsByteArray("avatar/zereni.png")));
     }
 
     @SneakyThrows
