@@ -37,19 +37,19 @@ public class UserAvatarServlet extends HttpServlet {
 
     static class Parameters {
         static final String AVATAR = "avatar";
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (isCorrectUrl(request)) {
-            getAvatar(ServletUtility.parseRequestPath(request), response);
+            getAvatar(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void getAvatar(String path, HttpServletResponse response) throws IOException {
+    private void getAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String path = ServletUtility.parseRequestPath(request);
         Long id = Long.parseLong(path.replaceAll("/", ""));
         Optional<User> user = service.find(id);
         if (user.isPresent()) {
@@ -65,13 +65,14 @@ public class UserAvatarServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (isCorrectUrl(request)) {
-            deleteAvatar(ServletUtility.parseRequestPath(request), response);
+            deleteAvatar(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void deleteAvatar(String path, HttpServletResponse response) throws IOException {
+    private void deleteAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String path = ServletUtility.parseRequestPath(request);
         Long id = Long.parseLong(path.replaceAll("/", ""));
         Optional<User> user = service.find(id);
         if (user.isPresent()) {
@@ -102,6 +103,35 @@ public class UserAvatarServlet extends HttpServlet {
                 user.get().setAvatar(is.readAllBytes());
             }
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (isCorrectUrl(request)) {
+            postAvatar(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    private void postAvatar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = ServletUtility.parseRequestPath(request);
+        Long id = Long.parseLong(path.replaceAll("/", ""));
+        Optional<User> user = service.find(id);
+        if (user.isPresent()) {
+            if (user.get().getAvatar().length == 0) {
+                Part avatar = request.getPart(Parameters.AVATAR);
+                if (avatar != null) {
+                    InputStream is = avatar.getInputStream();
+                    user.get().setAvatar(is.readAllBytes());
+                }
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
