@@ -21,6 +21,25 @@
                     <div>
                         Elves: <h:outputText value="#{santaClausView.santaClaus.elves}"/>
                     </div>
+                    <h:dataTable value="#{santaClausView.santaClaus.presents}" var="present" styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">present</f:facet>
+                            <h:outputText value="#{present.present}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">view</f:facet>
+                            <h:link outcome="/present/present_view.xhtml" value="view">
+                                <f:param name="id" value="#{present.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">delete</f:facet>
+                            <h:form>
+                                <h:commandButton styleClass="ui-button ui-control" value="delete"
+                                                 action="#{santaClausView.deleteAction(present)}"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
                 </div>
             </article>
         </h:panelGroup>

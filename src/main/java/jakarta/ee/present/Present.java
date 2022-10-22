@@ -1,6 +1,6 @@
 package jakarta.ee.present;
 
-enum Present {
+public enum Present {
     STICK,
     BOOK,
     PLAYSTATION,

@@ -1,5 +1,6 @@
 package jakarta.ee.santaclaus;
 
+import jakarta.ee.present.PresentWrapperRepository;
 import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -11,26 +12,30 @@ import java.util.Optional;
 @NoArgsConstructor
 public class SantaClausService {
 
-    private SantaClausRepository repository;
+    private SantaClausRepository santaClausRepository;
+
+    private PresentWrapperRepository presentWrapperRepository;
 
     @Inject
-    public SantaClausService(SantaClausRepository repository) {
-        this.repository = repository;
+    public SantaClausService(SantaClausRepository santaClausRepository, PresentWrapperRepository presentWrapperRepository) {
+        this.santaClausRepository = santaClausRepository;
+        this.presentWrapperRepository = presentWrapperRepository;
     }
 
     public Optional<SantaClaus> find(Long id) {
-        return repository.find(id);
+        return santaClausRepository.find(id);
     }
 
     public List<SantaClaus> findAll() {
-        return repository.findAll();
+        return santaClausRepository.findAll();
     }
 
     public void create(SantaClaus santaClaus) {
-        repository.create(santaClaus);
+        santaClausRepository.create(santaClaus);
     }
 
     public void delete(SantaClaus santaClaus) {
-        repository.delete(santaClaus);
+        santaClaus.getPresents().forEach(present -> presentWrapperRepository.delete(present));
+        santaClausRepository.delete(santaClaus);
     }
 }

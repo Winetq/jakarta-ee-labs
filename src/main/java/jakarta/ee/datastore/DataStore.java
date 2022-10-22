@@ -1,5 +1,6 @@
 package jakarta.ee.datastore;
 
+import jakarta.ee.present.PresentWrapper;
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.user.User;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 public class DataStore {
     private final Set<User> users = new HashSet<>();
     private final Set<SantaClaus> santaClauses = new HashSet<>();
+    private final Set<PresentWrapper> presents = new HashSet<>();
 
     public synchronized Optional<User> findUser(Long id) {
         return users
@@ -45,7 +47,26 @@ public class DataStore {
         santaClauses.add(entity);
     }
 
-    public void deleteSantaClaus(SantaClaus entity) {
+    public synchronized void deleteSantaClaus(SantaClaus entity) {
         santaClauses.remove(entity);
+    }
+
+    public synchronized Optional<PresentWrapper> findPresent(Long id) {
+        return presents
+                .stream()
+                .filter(present -> present.getId().longValue() == id.longValue())
+                .findFirst();
+    }
+
+    public synchronized List<PresentWrapper> findPresents() {
+        return new ArrayList<>(presents);
+    }
+
+    public synchronized void createPresent(PresentWrapper entity) {
+        presents.add(entity);
+    }
+
+    public synchronized void deletePresent(PresentWrapper entity) {
+        presents.remove(entity);
     }
 }
