@@ -26,6 +26,10 @@ public class SantaClausService {
         return santaClausRepository.find(id);
     }
 
+    public Optional<SantaClaus> find(String name) {
+        return santaClausRepository.find(name);
+    }
+
     public List<SantaClaus> findAll() {
         return santaClausRepository.findAll();
     }

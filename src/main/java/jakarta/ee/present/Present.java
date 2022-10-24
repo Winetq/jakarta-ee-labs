@@ -8,5 +8,14 @@ public enum Present {
     CAR,
     BALL,
     SHOES,
-    PC
+    PC;
+
+    public static Present of(String s) {
+        for (Present present : Present.values()) {
+            if (s.equalsIgnoreCase(present.name())) {
+                return present;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }

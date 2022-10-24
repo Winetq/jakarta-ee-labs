@@ -33,6 +33,12 @@
                             </h:link>
                         </h:column>
                         <h:column>
+                            <f:facet name="header">edit</f:facet>
+                            <h:link outcome="/present/present_edit.xhtml" value="edit">
+                                <f:param name="id" value="#{present.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">delete</f:facet>
                             <h:form>
                                 <h:commandButton styleClass="ui-button ui-control" value="delete"
@@ -40,6 +46,9 @@
                             </h:form>
                         </h:column>
                     </h:dataTable>
+                    <h:button styleClass="ui-button ui-control" outcome="/santaclaus/present_create.xhtml" value="Create a new present!">
+                        <f:param name="id" value="#{santaClausView.id}"/>
+                    </h:button>
                 </div>
             </article>
         </h:panelGroup>

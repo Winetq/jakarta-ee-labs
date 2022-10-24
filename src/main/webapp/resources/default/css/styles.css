@@ -123,3 +123,9 @@ body {
 .data-table tbody tr:hover {
     background-color: #96C4D8;
 }
+
+.main-form {
+    display: grid;
+    grid-template-columns: 100px 200px;
+    grid-gap: 10px;
+}

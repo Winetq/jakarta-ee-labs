@@ -2,11 +2,13 @@ package jakarta.ee.santaclaus;
 
 import jakarta.ee.present.PresentWrapper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class SantaClaus {
     private Long id;
     private String name;

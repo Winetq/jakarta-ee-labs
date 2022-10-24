@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{presentWrapperCreate.id}" required="true"/>
+        <f:viewAction action="#{presentWrapperCreate.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article>
+                <h:form class="main-form">
+                    <h:outputLabel for="present" value="Present:"/>
+                    <h:inputText class="ui-control ui-input" id="present" value="#{presentWrapperCreate.model.present}"/>
+
+                    <h:outputLabel for="dedication" value="Dedication:"/>
+                    <h:inputText class="ui-control ui-input" id="dedication" value="#{presentWrapperCreate.model.dedication}"/>
+
+                    <h:outputLabel for="price" value="Price:"/>
+                    <h:inputText class="ui-control ui-input" id="price" value="#{presentWrapperCreate.model.price}"/>
+
+                    <h:commandButton class="ui-control ui-button" value="Save" action="#{presentWrapperCreate.saveAction()}"/>
+                </h:form>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

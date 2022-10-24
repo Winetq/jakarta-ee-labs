@@ -22,6 +22,10 @@ public class SantaClausRepository implements Repository<SantaClaus, Long> {
         return store.findSantaClaus(id);
     }
 
+    public Optional<SantaClaus> find(String name) {
+        return store.findSantaClaus(name);
+    }
+
     @Override
     public List<SantaClaus> findAll() {
         return store.findSantaClauses();

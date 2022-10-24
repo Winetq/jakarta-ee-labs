@@ -39,6 +39,13 @@ public class DataStore {
                 .findFirst();
     }
 
+    public synchronized Optional<SantaClaus> findSantaClaus(String name) {
+        return santaClauses
+                .stream()
+                .filter(santaClaus -> santaClaus.getName().equals(name))
+                .findFirst();
+    }
+
     public synchronized List<SantaClaus> findSantaClauses() {
         return new ArrayList<>(santaClauses);
     }

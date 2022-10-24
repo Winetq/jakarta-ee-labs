@@ -22,4 +22,17 @@ public class PresentWrapper {
         this.price = price;
         this.santaClaus.addPresent(this);
     }
+
+    public void update(Present updatedPresent, SantaClaus updatedSantaClaus, String updatedDedication, double updatedPrice) {
+        present = updatedPresent;
+        updateSantaClaus(updatedSantaClaus);
+        dedication = updatedDedication;
+        price = updatedPrice;
+    }
+
+    private void updateSantaClaus(SantaClaus updatedSantaClaus) {
+        santaClaus.deletePresent(this);
+        santaClaus = updatedSantaClaus;
+        santaClaus.addPresent(this);
+    }
 }

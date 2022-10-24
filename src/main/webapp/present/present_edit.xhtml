@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{presentWrapperEdit.id}" required="true"/>
+        <f:viewAction action="#{presentWrapperEdit.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article>
+                <h:form class="main-form">
+                    <h:outputLabel for="present" value="Present:"/>
+                    <h:inputText class="ui-control ui-input" id="present" value="#{presentWrapperEdit.model.present}"/>
+
+                    <h:outputLabel for="santaClaus" value="Santa Claus:"/>
+                    <h:inputText class="ui-control ui-input" id="santaClaus" value="#{presentWrapperEdit.model.santaClausName}"/>
+
+                    <h:outputLabel for="dedication" value="Dedication:"/>
+                    <h:inputText class="ui-control ui-input" id="dedication" value="#{presentWrapperEdit.model.dedication}"/>
+
+                    <h:outputLabel for="price" value="Price:"/>
+                    <h:inputText class="ui-control ui-input" id="price" value="#{presentWrapperEdit.model.price}"/>
+
+                    <h:commandButton class="ui-control ui-button" value="Update" action="#{presentWrapperEdit.updateAction()}"/>
+                </h:form>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>
