@@ -27,7 +27,6 @@ public class PresentWrapperCreate implements Serializable {
 
     private final PresentWrapperService presentWrapperService;
 
-    @Getter
     private SantaClaus santaClaus;
 
     @Getter
