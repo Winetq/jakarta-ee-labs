@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 public class GetUserResponse {
-    private final  Long id;
+    private final Long id;
     private final String name;
     private final String surname;
     private final LocalDate birthday;
