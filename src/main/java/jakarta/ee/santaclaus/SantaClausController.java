@@ -1,11 +1,13 @@
 package jakarta.ee.santaclaus;
 
 import jakarta.ee.santaclaus.dto.GetSantaClausResponse;
+import jakarta.ee.santaclaus.dto.PostSantaClausRequest;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/santaclauses")
@@ -60,5 +62,23 @@ public class SantaClausController {
         return Response
                 .status(Response.Status.NOT_FOUND)
                 .build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createSantaClaus(PostSantaClausRequest request) {
+        service.create(new SantaClaus(
+                getMaxId(service.findAll()) + 1,
+                request.getName(),
+                request.getMoveSpeed(),
+                request.getElves())
+        );
+        return Response
+                .status(Response.Status.CREATED)
+                .build();
+    }
+
+    private long getMaxId(List<SantaClaus> santaClauses) {
+        return santaClauses.stream().mapToLong(SantaClaus::getId).max().orElse(0);
     }
 }

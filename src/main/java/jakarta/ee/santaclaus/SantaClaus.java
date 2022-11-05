@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 public class SantaClaus {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
     private double moveSpeed;
     private int elves;
     private List<PresentWrapper> presents;

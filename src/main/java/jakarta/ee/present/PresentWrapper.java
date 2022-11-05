@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class PresentWrapper {
-    private Long id;
+    private final Long id;
     private Present present;
     private SantaClaus santaClaus;
     private User user;
