@@ -29,4 +29,9 @@ public class SantaClaus {
     public void deletePresent(PresentWrapper present) {
         presents.remove(present);
     }
+
+    public void update(double updatedMoveSpeed, int updatedElves) {
+        moveSpeed = updatedMoveSpeed;
+        elves = updatedElves;
+    }
 }

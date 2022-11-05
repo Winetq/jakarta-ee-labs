@@ -2,6 +2,7 @@ package jakarta.ee.santaclaus;
 
 import jakarta.ee.santaclaus.dto.GetSantaClausResponse;
 import jakarta.ee.santaclaus.dto.PostSantaClausRequest;
+import jakarta.ee.santaclaus.dto.PutSantaClausRequest;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -55,6 +56,22 @@ public class SantaClausController {
         Optional<SantaClaus> santaClaus = service.find(id);
         if (santaClaus.isPresent()) {
             service.delete(santaClaus.get());
+            return Response
+                    .status(Response.Status.NO_CONTENT)
+                    .build();
+        }
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateSantaClaus(@PathParam("id") Long id, PutSantaClausRequest request) {
+        Optional<SantaClaus> santaClaus = service.find(id);
+        if (santaClaus.isPresent()) {
+            santaClaus.get().update(request.getMoveSpeed(), request.getElves());
             return Response
                     .status(Response.Status.NO_CONTENT)
                     .build();
