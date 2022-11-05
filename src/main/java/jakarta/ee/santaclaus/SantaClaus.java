@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public class SantaClaus {
@@ -33,5 +34,12 @@ public class SantaClaus {
     public void update(double updatedMoveSpeed, int updatedElves) {
         moveSpeed = updatedMoveSpeed;
         elves = updatedElves;
+    }
+
+    public Optional<PresentWrapper> getPresents(Long presentWrapperId) {
+        return presents
+                .stream()
+                .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
+                .findFirst();
     }
 }
