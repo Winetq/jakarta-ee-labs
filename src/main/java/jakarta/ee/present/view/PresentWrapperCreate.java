@@ -15,7 +15,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -56,7 +55,7 @@ public class PresentWrapperCreate implements Serializable {
     public String saveAction() {
         try {
             presentWrapperService.create(new PresentWrapper(
-                    getMaxId(presentWrapperService.findAll()) + 1,
+                    presentWrapperService.getMaxId(presentWrapperService.findAll()) + 1,
                     Present.of(model.getPresent()),
                     santaClaus,
                     null,
@@ -67,9 +66,5 @@ public class PresentWrapperCreate implements Serializable {
         } catch (IllegalArgumentException | NoSuchElementException | NullPointerException e) {
             return "present_create.xhtml?id=" + id + "&faces-redirect=true";
         }
-    }
-
-    private long getMaxId(List<PresentWrapper> presentWrappers) {
-        return presentWrappers.stream().mapToLong(PresentWrapper::getId).max().orElse(0);
     }
 }

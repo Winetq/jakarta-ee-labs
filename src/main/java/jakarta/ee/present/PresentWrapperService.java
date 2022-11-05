@@ -33,4 +33,8 @@ public class PresentWrapperService {
     public void delete(PresentWrapper present) {
         repository.delete(present);
     }
+
+    public long getMaxId(List<PresentWrapper> presentWrappers) {
+        return presentWrappers.stream().mapToLong(PresentWrapper::getId).max().orElse(0);
+    }
 }

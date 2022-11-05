@@ -1,6 +1,7 @@
 package jakarta.ee.present;
 
 import jakarta.ee.present.dto.GetPresentWrapperResponse;
+import jakarta.ee.present.dto.PresentWrapperRequest;
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.santaclaus.SantaClausService;
 
@@ -78,6 +79,49 @@ public class PresentWrapperController {
                         .status(Response.Status.NO_CONTENT)
                         .build();
             }
+        }
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .build();
+    }
+
+    @PUT
+    @Path("{presentWrapperId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateSantaClausPresent(@PathParam("santaClausId") Long santaClausId,
+                                            @PathParam("presentWrapperId") Long presentWrapperId,
+                                            PresentWrapperRequest request) {
+        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
+        if (santaClaus.isPresent()) {
+            Optional<PresentWrapper> present = santaClaus.get().getPresents(presentWrapperId);
+            if (present.isPresent()) {
+                present.get().update(request.getPresent(), request.getDedication(), request.getPrice());
+                return Response
+                        .status(Response.Status.NO_CONTENT)
+                        .build();
+            }
+        }
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createSantaClausPresent(@PathParam("santaClausId") Long santaClausId, PresentWrapperRequest request) {
+        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
+        if (santaClaus.isPresent()) {
+            presentWrapperService.create(new PresentWrapper(
+                    presentWrapperService.getMaxId(presentWrapperService.findAll()) + 1,
+                    request.getPresent(),
+                    santaClaus.get(),
+                    null,
+                    request.getDedication(),
+                    request.getPrice())
+            );
+            return Response
+                    .status(Response.Status.CREATED)
+                    .build();
         }
         return Response
                 .status(Response.Status.NOT_FOUND)
