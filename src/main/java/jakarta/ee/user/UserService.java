@@ -41,6 +41,11 @@ public class UserService {
         repository.create(user);
     }
 
+    @Transactional
+    public void update(User user) {
+        repository.update(user);
+    }
+
     public void deleteAvatar(User user) {
         Path path = Path.of(avatarsDirectory, user.getAvatarFileName());
         try {

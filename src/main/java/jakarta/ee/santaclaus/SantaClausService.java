@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,11 @@ public class SantaClausService {
     }
 
     public Optional<SantaClaus> find(String name) {
-        return santaClausRepository.find(name);
+        try {
+            return Optional.of(santaClausRepository.find(name));
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     public List<SantaClaus> findAll() {

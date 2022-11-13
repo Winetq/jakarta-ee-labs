@@ -38,11 +38,9 @@ public class User {
 
     @Getter
     @Setter
-    @Transient
     private String avatarFileName;
 
     @Getter
     @Setter
-    @Transient
     private byte[] avatar;
 }

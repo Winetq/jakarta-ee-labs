@@ -32,4 +32,8 @@ public class UserRepository implements Repository<User, Long> {
     public void create(User entity) {
         em.persist(entity);
     }
+
+    public void update(User entity) {
+        em.merge(entity);
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.ee.repository.Repository;
 
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +24,10 @@ public class SantaClausRepository implements Repository<SantaClaus, Long> {
         return Optional.ofNullable(em.find(SantaClaus.class, id));
     }
 
-    public Optional<SantaClaus> find(String name) {
-        return Optional.ofNullable(em
-                .createQuery("select sc from SantaClaus sc where sc.name = :name", SantaClaus.class)
+    public SantaClaus find(String name) throws NoResultException {
+        return em.createQuery("select sc from SantaClaus sc where sc.name = :name", SantaClaus.class)
                 .setParameter("name", name)
-                .getSingleResult());
+                .getSingleResult();
     }
 
     @Override

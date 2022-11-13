@@ -51,12 +51,12 @@ public class PresentWrapperService {
         presentWrapperRepository.delete(present);
     }
 
-    public long getMaxId(List<PresentWrapper> presentWrappers) {
-        return presentWrappers.stream().mapToLong(PresentWrapper::getId).max().orElse(0);
-    }
-
     @Transactional
     public void update(PresentWrapper present) {
         presentWrapperRepository.update(present);
+    }
+
+    public long getMaxId(List<PresentWrapper> presentWrappers) {
+        return presentWrappers.stream().mapToLong(PresentWrapper::getId).max().orElse(0);
     }
 }

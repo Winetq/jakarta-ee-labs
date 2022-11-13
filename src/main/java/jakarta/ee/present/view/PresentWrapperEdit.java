@@ -64,7 +64,8 @@ public class PresentWrapperEdit implements Serializable {
     public String updateAction() {
         try {
             Present updatedPresent = Present.of(model.getPresent());
-            SantaClaus updatedSantaClaus = santaClausService.find(model.getSantaClausName()).get();
+            Optional<SantaClaus> maybeUpdatedSantaClaus = santaClausService.find(model.getSantaClausName());
+            SantaClaus updatedSantaClaus = maybeUpdatedSantaClaus.orElse(present.getSantaClaus());
             String updatedDedication = model.getDedication();
             double updatedPrice = Double.parseDouble(model.getPrice());
             presentWrapperService.update(PresentWrapper.builder()
