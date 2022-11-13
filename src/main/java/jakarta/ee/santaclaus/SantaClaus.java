@@ -1,14 +1,20 @@
 package jakarta.ee.santaclaus;
 
 import jakarta.ee.present.PresentWrapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@Builder
+@AllArgsConstructor
 @Getter
 @NoArgsConstructor
 @Entity
@@ -41,17 +47,5 @@ public class SantaClaus {
 
     public void deletePresent(PresentWrapper present) {
         presents.remove(present);
-    }
-
-    public void update(double updatedMoveSpeed, int updatedElves) {
-        moveSpeed = updatedMoveSpeed;
-        elves = updatedElves;
-    }
-
-    public Optional<PresentWrapper> getPresents(Long presentWrapperId) {
-        return presents
-                .stream()
-                .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
-                .findFirst();
     }
 }

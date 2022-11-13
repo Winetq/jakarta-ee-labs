@@ -45,4 +45,9 @@ public class SantaClausService {
         presentWrapperRepository.findAllBySantaClausId(santaClaus.getId()).forEach(presentWrapper -> presentWrapperRepository.delete(presentWrapper));
         santaClausRepository.delete(santaClaus);
     }
+
+    @Transactional
+    public void update(SantaClaus santaClaus) {
+        santaClausRepository.update(santaClaus);
+    }
 }

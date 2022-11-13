@@ -43,9 +43,7 @@ public class PresentWrapperController {
                     .ok(GetPresentWrapperResponse.entitiesToDtoMapper().apply(santaClausPresents.get()))
                     .build();
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @GET
@@ -54,18 +52,14 @@ public class PresentWrapperController {
     public Response getSantaClausPresent(@PathParam("santaClausId") Long santaClausId, @PathParam("presentWrapperId") Long presentWrapperId) {
         Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
         if (santaClausPresents.isPresent()) {
-            Optional<PresentWrapper> present = santaClausPresents.get().stream()
-                    .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
-                    .findFirst();
+            Optional<PresentWrapper> present = getSantaClausPresent(santaClausPresents.get(), presentWrapperId);
             if (present.isPresent()) {
                 return Response
                         .ok(GetPresentWrapperResponse.entityToDtoMapper().apply(present.get()))
                         .build();
             }
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
@@ -74,19 +68,13 @@ public class PresentWrapperController {
     public Response deleteSantaClausPresent(@PathParam("santaClausId") Long santaClausId, @PathParam("presentWrapperId") Long presentWrapperId) {
         Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
         if (santaClausPresents.isPresent()) {
-            Optional<PresentWrapper> present = santaClausPresents.get().stream()
-                    .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
-                    .findFirst();
+            Optional<PresentWrapper> present = getSantaClausPresent(santaClausPresents.get(), presentWrapperId);
             if (present.isPresent()) {
                 presentWrapperService.delete(present.get());
-                return Response
-                        .status(Response.Status.NO_CONTENT)
-                        .build();
+                return Response.status(Response.Status.NO_CONTENT).build();
             }
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @PUT
@@ -95,19 +83,15 @@ public class PresentWrapperController {
     public Response updateSantaClausPresent(@PathParam("santaClausId") Long santaClausId,
                                             @PathParam("presentWrapperId") Long presentWrapperId,
                                             PresentWrapperRequest request) {
-        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
-        if (santaClaus.isPresent()) {
-            Optional<PresentWrapper> present = santaClaus.get().getPresents(presentWrapperId);
+        Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
+        if (santaClausPresents.isPresent()) {
+            Optional<PresentWrapper> present = getSantaClausPresent(santaClausPresents.get(), presentWrapperId);
             if (present.isPresent()) {
-                present.get().update(request.getPresent(), request.getDedication(), request.getPrice());
-                return Response
-                        .status(Response.Status.NO_CONTENT)
-                        .build();
+                presentWrapperService.update(PresentWrapperRequest.dtoToEntityMapper().apply(present.get(), request));
+                return Response.status(Response.Status.NO_CONTENT).build();
             }
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST
@@ -123,12 +107,15 @@ public class PresentWrapperController {
                     request.getDedication(),
                     request.getPrice())
             );
-            return Response
-                    .status(Response.Status.CREATED)
-                    .build();
+            return Response.status(Response.Status.CREATED).build();
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    private Optional<PresentWrapper> getSantaClausPresent(List<PresentWrapper> santaClausPresents, Long presentWrapperId) {
+        return santaClausPresents
+                .stream()
+                .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
+                .findFirst();
     }
 }

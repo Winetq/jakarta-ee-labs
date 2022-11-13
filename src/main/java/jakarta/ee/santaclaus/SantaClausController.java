@@ -44,9 +44,7 @@ public class SantaClausController {
                     .ok(GetSantaClausResponse.entityToDtoMapper().apply(santaClaus.get()))
                     .build();
         }
-        return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
@@ -56,13 +54,9 @@ public class SantaClausController {
         Optional<SantaClaus> santaClaus = service.find(id);
         if (santaClaus.isPresent()) {
             service.delete(santaClaus.get());
-            return Response
-                    .status(Response.Status.NO_CONTENT)
-                    .build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @PUT
@@ -71,14 +65,10 @@ public class SantaClausController {
     public Response updateSantaClaus(@PathParam("id") Long id, PutSantaClausRequest request) {
         Optional<SantaClaus> santaClaus = service.find(id);
         if (santaClaus.isPresent()) {
-            santaClaus.get().update(request.getMoveSpeed(), request.getElves());
-            return Response
-                    .status(Response.Status.NO_CONTENT)
-                    .build();
+            service.update(PutSantaClausRequest.dtoToEntityMapper().apply(santaClaus.get(), request));
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
-        return Response
-                .status(Response.Status.NOT_FOUND)
-                .build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST
@@ -90,9 +80,7 @@ public class SantaClausController {
                 request.getMoveSpeed(),
                 request.getElves())
         );
-        return Response
-                .status(Response.Status.CREATED)
-                .build();
+        return Response.status(Response.Status.CREATED).build();
     }
 
     private long getMaxId(List<SantaClaus> santaClauses) {

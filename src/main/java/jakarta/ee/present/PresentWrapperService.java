@@ -37,9 +37,8 @@ public class PresentWrapperService {
         Optional<SantaClaus> santaClaus = santaClausRepository.find(santaClausId);
         if (santaClaus.isPresent()) {
             return Optional.of(presentWrapperRepository.findAllBySantaClausId(santaClausId));
-        } else {
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     @Transactional
@@ -54,5 +53,10 @@ public class PresentWrapperService {
 
     public long getMaxId(List<PresentWrapper> presentWrappers) {
         return presentWrappers.stream().mapToLong(PresentWrapper::getId).max().orElse(0);
+    }
+
+    @Transactional
+    public void update(PresentWrapper present) {
+        presentWrapperRepository.update(present);
     }
 }

@@ -2,11 +2,13 @@ package jakarta.ee.present;
 
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.user.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @Entity
@@ -37,12 +39,6 @@ public class PresentWrapper {
         this.dedication = dedication;
         this.price = price;
         this.santaClaus.addPresent(this);
-    }
-
-    public void update(Present updatedPresent, String updatedDedication, double updatedPrice) {
-        present = updatedPresent;
-        dedication = updatedDedication;
-        price = updatedPrice;
     }
 
     public void update(Present updatedPresent, SantaClaus updatedSantaClaus, String updatedDedication, double updatedPrice) {

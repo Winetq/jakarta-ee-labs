@@ -42,4 +42,8 @@ public class PresentWrapperRepository implements Repository<PresentWrapper, Long
     public void delete(PresentWrapper entity) {
         em.remove(em.find(PresentWrapper.class, entity.getId()));
     }
+
+    public void update(PresentWrapper entity) {
+        em.merge(entity);
+    }
 }

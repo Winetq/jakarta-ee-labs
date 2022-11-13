@@ -43,4 +43,8 @@ public class SantaClausRepository implements Repository<SantaClaus, Long> {
     public void delete(SantaClaus entity) {
         em.remove(em.find(SantaClaus.class, entity.getId()));
     }
+
+    public void update(SantaClaus entity) {
+        em.merge(entity);
+    }
 }
