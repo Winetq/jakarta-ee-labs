@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/santaclauses/{santaClausId}/presents")
@@ -36,10 +37,10 @@ public class PresentWrapperController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSantaClausPresents(@PathParam("santaClausId") Long santaClausId) {
-        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
-        if (santaClaus.isPresent()) {
+        Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
+        if (santaClausPresents.isPresent()) {
             return Response
-                    .ok(GetPresentWrapperResponse.entitiesToDtoMapper().apply(santaClaus.get().getPresents()))
+                    .ok(GetPresentWrapperResponse.entitiesToDtoMapper().apply(santaClausPresents.get()))
                     .build();
         }
         return Response
@@ -51,9 +52,11 @@ public class PresentWrapperController {
     @Path("{presentWrapperId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSantaClausPresent(@PathParam("santaClausId") Long santaClausId, @PathParam("presentWrapperId") Long presentWrapperId) {
-        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
-        if (santaClaus.isPresent()) {
-            Optional<PresentWrapper> present = santaClaus.get().getPresents(presentWrapperId);
+        Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
+        if (santaClausPresents.isPresent()) {
+            Optional<PresentWrapper> present = santaClausPresents.get().stream()
+                    .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
+                    .findFirst();
             if (present.isPresent()) {
                 return Response
                         .ok(GetPresentWrapperResponse.entityToDtoMapper().apply(present.get()))
@@ -69,11 +72,12 @@ public class PresentWrapperController {
     @Path("{presentWrapperId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteSantaClausPresent(@PathParam("santaClausId") Long santaClausId, @PathParam("presentWrapperId") Long presentWrapperId) {
-        Optional<SantaClaus> santaClaus = santaClausService.find(santaClausId);
-        if (santaClaus.isPresent()) {
-            Optional<PresentWrapper> present = santaClaus.get().getPresents(presentWrapperId);
+        Optional<List<PresentWrapper>> santaClausPresents = presentWrapperService.findAllBySantaClausId(santaClausId);
+        if (santaClausPresents.isPresent()) {
+            Optional<PresentWrapper> present = santaClausPresents.get().stream()
+                    .filter(presentWrapper -> presentWrapper.getId().longValue() == presentWrapperId.longValue())
+                    .findFirst();
             if (present.isPresent()) {
-                santaClaus.get().deletePresent(present.get());
                 presentWrapperService.delete(present.get());
                 return Response
                         .status(Response.Status.NO_CONTENT)

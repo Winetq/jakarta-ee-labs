@@ -1,42 +1,46 @@
 package jakarta.ee.santaclaus;
 
-import jakarta.ee.datastore.DataStore;
 import jakarta.ee.repository.Repository;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class SantaClausRepository implements Repository<SantaClaus, Long> {
-    private DataStore store;
 
-    @Inject
-    public SantaClausRepository(DataStore store) {
-        this.store = store;
+    private EntityManager em;
+
+    @PersistenceContext(unitName = "PersistenceUnit")
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     @Override
     public Optional<SantaClaus> find(Long id) {
-        return store.findSantaClaus(id);
+        return Optional.ofNullable(em.find(SantaClaus.class, id));
     }
 
     public Optional<SantaClaus> find(String name) {
-        return store.findSantaClaus(name);
+        return Optional.ofNullable(em
+                .createQuery("select sc from SantaClaus sc where sc.name = :name", SantaClaus.class)
+                .setParameter("name", name)
+                .getSingleResult());
     }
 
     @Override
     public List<SantaClaus> findAll() {
-        return store.findSantaClauses();
+        return em.createQuery("select sc from SantaClaus sc", SantaClaus.class).getResultList();
     }
 
     @Override
     public void create(SantaClaus entity) {
-        store.createSantaClaus(entity);
+        em.persist(entity);
     }
 
     public void delete(SantaClaus entity) {
-        store.deleteSantaClaus(entity);
+        em.remove(em.find(SantaClaus.class, entity.getId()));
     }
 }

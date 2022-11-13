@@ -2,17 +2,29 @@ package jakarta.ee.santaclaus;
 
 import jakarta.ee.present.PresentWrapper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "santa_clauses")
 public class SantaClaus {
-    private final Long id;
-    private final String name;
+
+    @Id
+    private Long id;
+
+    private String name;
+
     private double moveSpeed;
+
     private int elves;
+
+    @OneToMany(mappedBy = "santaClaus")
     private List<PresentWrapper> presents;
 
     public SantaClaus(Long id, String name, double moveSpeed, int elves) {

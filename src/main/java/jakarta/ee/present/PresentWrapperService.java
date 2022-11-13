@@ -1,9 +1,12 @@
 package jakarta.ee.present;
 
+import jakarta.ee.santaclaus.SantaClaus;
+import jakarta.ee.santaclaus.SantaClausRepository;
 import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,27 +14,42 @@ import java.util.Optional;
 @NoArgsConstructor
 public class PresentWrapperService {
 
-    private PresentWrapperRepository repository;
+    private PresentWrapperRepository presentWrapperRepository;
+
+    private SantaClausRepository santaClausRepository;
 
     @Inject
-    public PresentWrapperService(PresentWrapperRepository repository) {
-        this.repository = repository;
+    public PresentWrapperService(PresentWrapperRepository presentWrapperRepository,
+                                 SantaClausRepository santaClausRepository) {
+        this.presentWrapperRepository = presentWrapperRepository;
+        this.santaClausRepository = santaClausRepository;
     }
 
     public Optional<PresentWrapper> find(Long id) {
-        return repository.find(id);
+        return presentWrapperRepository.find(id);
     }
 
     public List<PresentWrapper> findAll() {
-        return repository.findAll();
+        return presentWrapperRepository.findAll();
     }
 
+    public Optional<List<PresentWrapper>> findAllBySantaClausId(Long santaClausId) {
+        Optional<SantaClaus> santaClaus = santaClausRepository.find(santaClausId);
+        if (santaClaus.isPresent()) {
+            return Optional.of(presentWrapperRepository.findAllBySantaClausId(santaClausId));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Transactional
     public void create(PresentWrapper present) {
-        repository.create(present);
+        presentWrapperRepository.create(present);
     }
 
+    @Transactional
     public void delete(PresentWrapper present) {
-        repository.delete(present);
+        presentWrapperRepository.delete(present);
     }
 
     public long getMaxId(List<PresentWrapper> presentWrappers) {

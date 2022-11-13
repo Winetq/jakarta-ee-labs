@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,12 +35,14 @@ public class SantaClausService {
         return santaClausRepository.findAll();
     }
 
+    @Transactional
     public void create(SantaClaus santaClaus) {
         santaClausRepository.create(santaClaus);
     }
 
+    @Transactional
     public void delete(SantaClaus santaClaus) {
-        santaClaus.getPresents().forEach(present -> presentWrapperRepository.delete(present));
+        presentWrapperRepository.findAllBySantaClausId(santaClaus.getId()).forEach(presentWrapper -> presentWrapperRepository.delete(presentWrapper));
         santaClausRepository.delete(santaClaus);
     }
 }

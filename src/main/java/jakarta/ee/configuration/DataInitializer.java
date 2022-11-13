@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -22,12 +23,15 @@ public class DataInitializer {
     private final UserService userService;
     private final SantaClausService santaClausService;
     private final PresentWrapperService presentWrapperService;
+    private final RequestContextController requestContextController;
 
     @Inject
-    public DataInitializer(UserService userService, SantaClausService santaClausService, PresentWrapperService presentWrapperService) {
+    public DataInitializer(UserService userService, SantaClausService santaClausService,
+                           PresentWrapperService presentWrapperService, RequestContextController requestContextController) {
         this.userService = userService;
         this.santaClausService = santaClausService;
         this.presentWrapperService = presentWrapperService;
+        this.requestContextController = requestContextController;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -35,6 +39,8 @@ public class DataInitializer {
     }
 
     private synchronized void init() {
+        requestContextController.activate(); // start a request scope in order to inject request scoped repositories
+
         User user1 = new User(1L, "User", "One", LocalDate.of(1999, 9, 9),
                 "admin", "admin", Role.USER, "calvian.png", getResourceAsByteArray("avatar/calvian.png"));
         userService.create(user1);
@@ -65,6 +71,8 @@ public class DataInitializer {
         presentWrapperService.create(new PresentWrapper(6L, Present.PLAYSTATION, santaClaus3, user3, "for son", 2499.99));
         presentWrapperService.create(new PresentWrapper(7L, Present.BALL, santaClaus4, user4, "for son", 99.49));
         presentWrapperService.create(new PresentWrapper(8L, Present.CAR, santaClaus4, user4, "for dad", 99999.99));
+
+        requestContextController.deactivate();
     }
 
     @SneakyThrows

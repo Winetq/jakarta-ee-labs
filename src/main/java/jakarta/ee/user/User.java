@@ -2,14 +2,21 @@ package jakarta.ee.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "users")
 public class User {
+
     @Getter
-    private final Long id;
+    @Id
+    private Long id;
 
     @Getter
     private String name;
@@ -18,7 +25,7 @@ public class User {
     private String surname;
 
     @Getter
-    private final LocalDate birthday;
+    private LocalDate birthday;
 
     @Getter
     private String login;
@@ -26,13 +33,16 @@ public class User {
     private String password;
 
     @Getter
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Getter
     @Setter
+    @Transient
     private String avatarFileName;
 
     @Getter
     @Setter
+    @Transient
     private byte[] avatar;
 }

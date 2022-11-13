@@ -1,34 +1,35 @@
 package jakarta.ee.user;
 
-import jakarta.ee.datastore.DataStore;
 import jakarta.ee.repository.Repository;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class UserRepository implements Repository<User, Long> {
-    private DataStore store;
 
-    @Inject
-    public UserRepository(DataStore store) {
-        this.store = store;
+    private EntityManager em;
+
+    @PersistenceContext(unitName = "PersistenceUnit")
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     @Override
     public Optional<User> find(Long id) {
-        return store.findUser(id);
+        return Optional.ofNullable(em.find(User.class, id));
     }
 
     @Override
     public List<User> findAll() {
-        return store.findUsers();
+        return em.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
     public void create(User entity) {
-        store.createUser(entity);
+        em.persist(entity);
     }
 }

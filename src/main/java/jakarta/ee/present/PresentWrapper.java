@@ -3,14 +3,30 @@ package jakarta.ee.present;
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "presents")
 public class PresentWrapper {
-    private final Long id;
+
+    @Id
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
     private Present present;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private SantaClaus santaClaus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
     private String dedication;
+
     private double price;
 
     public PresentWrapper(Long id, Present present, SantaClaus santaClaus, User user, String dedication, double price) {

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,6 +36,7 @@ public class UserService {
         return repository.findAll();
     }
 
+    @Transactional
     public void create(User user) {
         repository.create(user);
     }
