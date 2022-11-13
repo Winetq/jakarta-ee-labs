@@ -67,7 +67,15 @@ public class PresentWrapperEdit implements Serializable {
             SantaClaus updatedSantaClaus = santaClausService.find(model.getSantaClausName()).get();
             String updatedDedication = model.getDedication();
             double updatedPrice = Double.parseDouble(model.getPrice());
-            present.update(updatedPresent, updatedSantaClaus, updatedDedication, updatedPrice);
+            presentWrapperService.update(PresentWrapper.builder()
+                    .id(present.getId())
+                    .present(updatedPresent)
+                    .santaClaus(updatedSantaClaus)
+                    .user(present.getUser())
+                    .dedication(updatedDedication)
+                    .price(updatedPrice)
+                    .build()
+            );
             return "present_edit.xhtml?id=" + id + "&faces-redirect=true";
         } catch (IllegalArgumentException | NoSuchElementException | NullPointerException e) {
             return "present_edit.xhtml?id=" + id + "&faces-redirect=true";

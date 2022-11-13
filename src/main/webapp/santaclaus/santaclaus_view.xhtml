@@ -21,7 +21,7 @@
                     <div>
                         Elves: <h:outputText value="#{santaClausView.santaClaus.elves}"/>
                     </div>
-                    <h:dataTable value="#{santaClausView.santaClaus.presents}" var="present" styleClass="data-table">
+                    <h:dataTable value="#{santaClausView.santaClausPresents}" var="present" styleClass="data-table">
                         <h:column>
                             <f:facet name="header">present</f:facet>
                             <h:outputText value="#{present.present}"/>

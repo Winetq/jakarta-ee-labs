@@ -14,6 +14,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @SessionScoped
@@ -47,8 +49,11 @@ public class SantaClausView implements Serializable {
         }
     }
 
+    public List<PresentWrapper> getSantaClausPresents() {
+        return presentWrapperService.findAllBySantaClausId(santaClaus.getId()).orElse(new ArrayList<>());
+    }
+
     public String deleteAction(PresentWrapper present) {
-        santaClaus.deletePresent(present);
         presentWrapperService.delete(present);
         return "santaclaus_view.xhtml?id=" + id + "&faces-redirect=true";
     }
