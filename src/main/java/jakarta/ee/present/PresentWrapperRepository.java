@@ -43,6 +43,7 @@ public class PresentWrapperRepository implements Repository<PresentWrapper, Long
         em.remove(em.find(PresentWrapper.class, entity.getId()));
     }
 
+    @Override
     public void update(PresentWrapper entity) {
         em.merge(entity);
     }

@@ -70,7 +70,7 @@ public class UserAvatarServlet extends HttpServlet {
     private void deleteAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Optional<User> user = findUserById(request);
         if (user.isPresent()) {
-            service.deleteAvatar(user.get());
+            service.updateUserAvatar(user.get(), "", new byte[0]);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -89,7 +89,7 @@ public class UserAvatarServlet extends HttpServlet {
     private void putAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Optional<User> user = findUserById(request);
         if (user.isPresent()) {
-            service.updateAvatar(user.get(), request.getPart(Parameters.AVATAR));
+            service.updateUserAvatar(user.get(), request.getPart(Parameters.AVATAR));
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -109,7 +109,7 @@ public class UserAvatarServlet extends HttpServlet {
         Optional<User> user = findUserById(request);
         if (user.isPresent()) {
             if (user.get().getAvatarFileName().isEmpty()) {
-                service.createAvatar(user.get(), request.getPart(Parameters.AVATAR));
+                service.updateUserAvatar(user.get(), request.getPart(Parameters.AVATAR));
                 response.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);

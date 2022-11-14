@@ -33,6 +33,7 @@ public class UserRepository implements Repository<User, Long> {
         em.persist(entity);
     }
 
+    @Override
     public void update(User entity) {
         em.merge(entity);
     }

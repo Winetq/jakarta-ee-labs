@@ -7,4 +7,5 @@ public interface Repository<E, K> {
     Optional<E> find(K key);
     List<E> findAll();
     void create(E entity);
+    void update(E entity);
 }
