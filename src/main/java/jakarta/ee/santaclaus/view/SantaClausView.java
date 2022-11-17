@@ -33,8 +33,6 @@ public class SantaClausView implements Serializable {
     @Getter
     private Long id;
 
-    public SantaClausView() {}
-
     @EJB
     public void setSantaClausService(SantaClausService santaClausService) {
         this.santaClausService = santaClausService;

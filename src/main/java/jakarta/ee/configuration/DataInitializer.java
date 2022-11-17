@@ -26,8 +26,6 @@ public class DataInitializer {
     private SantaClausService santaClausService;
     private PresentWrapperService presentWrapperService;
 
-    public DataInitializer() {}
-
     @EJB
     public void setUserService(UserService userService) {
         this.userService = userService;

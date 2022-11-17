@@ -27,8 +27,6 @@ public class PresentWrapperView implements Serializable {
     @Getter
     private Long id;
 
-    public PresentWrapperView() {}
-
     @EJB
     public void setService(PresentWrapperService service) {
         this.service = service;

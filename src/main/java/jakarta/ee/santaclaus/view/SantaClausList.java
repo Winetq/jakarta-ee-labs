@@ -17,8 +17,6 @@ public class SantaClausList implements Serializable {
 
     private List<SantaClaus> santaClauses;
 
-    public SantaClausList() {}
-
     @EJB
     public void setService(SantaClausService service) {
         this.service = service;

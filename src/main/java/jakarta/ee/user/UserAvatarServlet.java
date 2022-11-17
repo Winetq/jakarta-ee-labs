@@ -20,8 +20,6 @@ public class UserAvatarServlet extends HttpServlet {
 
     private UserService service;
 
-    public UserAvatarServlet() {}
-
     @EJB
     public void setService(UserService service) {
         this.service = service;

@@ -35,8 +35,6 @@ public class PresentWrapperEdit implements Serializable {
     @Getter
     private Long id;
 
-    public PresentWrapperEdit() {}
-
     @EJB
     public void setPresentWrapperService(PresentWrapperService presentWrapperService) {
         this.presentWrapperService = presentWrapperService;
