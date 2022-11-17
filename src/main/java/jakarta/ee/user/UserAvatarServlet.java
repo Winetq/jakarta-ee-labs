@@ -3,7 +3,7 @@ package jakarta.ee.user;
 import jakarta.ee.http.MimeTypes;
 import jakarta.ee.http.ServletUtility;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +20,10 @@ public class UserAvatarServlet extends HttpServlet {
 
     private UserService service;
 
-    @Inject
-    public UserAvatarServlet(UserService service) {
+    public UserAvatarServlet() {}
+
+    @EJB
+    public void setService(UserService service) {
         this.service = service;
     }
 

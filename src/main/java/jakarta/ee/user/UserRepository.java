@@ -2,13 +2,18 @@ package jakarta.ee.user;
 
 import jakarta.ee.repository.Repository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@RequestScoped
+/**
+ * There is no need for defining request scoped as repositories will be injected only to EJB beans which by design
+ * are not shared across different threads.
+ */
+@Dependent
 public class UserRepository implements Repository<User, Long> {
 
     private EntityManager em;
@@ -36,5 +41,16 @@ public class UserRepository implements Repository<User, Long> {
     @Override
     public void update(User entity) {
         em.merge(entity);
+    }
+
+    public Optional<User> findByLoginAndPassword(String login, String password) {
+        try {
+            return Optional.of(em.createQuery("select u from User u where u.login = :login and u.password = :password", User.class)
+                    .setParameter("login", login)
+                    .setParameter("password", password)
+                    .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
     }
 }

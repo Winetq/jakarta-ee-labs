@@ -10,37 +10,41 @@ import jakarta.ee.user.User;
 import jakarta.ee.user.UserService;
 import lombok.SneakyThrows;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.context.control.RequestContextController;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.ejb.*;
 import java.io.InputStream;
 import java.time.LocalDate;
 
-@ApplicationScoped
+/**
+ * EJB singleton can be forced to start automatically when application starts.
+ */
+@Singleton
+@Startup
+@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
 public class DataInitializer {
-    private final UserService userService;
-    private final SantaClausService santaClausService;
-    private final PresentWrapperService presentWrapperService;
-    private final RequestContextController requestContextController;
+    private UserService userService;
+    private SantaClausService santaClausService;
+    private PresentWrapperService presentWrapperService;
 
-    @Inject
-    public DataInitializer(UserService userService, SantaClausService santaClausService,
-                           PresentWrapperService presentWrapperService, RequestContextController requestContextController) {
+    public DataInitializer() {}
+
+    @EJB
+    public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @EJB
+    public void setSantaClausService(SantaClausService santaClausService) {
         this.santaClausService = santaClausService;
+    }
+
+    @EJB
+    public void setPresentWrapperService(PresentWrapperService presentWrapperService) {
         this.presentWrapperService = presentWrapperService;
-        this.requestContextController = requestContextController;
     }
 
-    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        init();
-    }
-
+    @PostConstruct
     private synchronized void init() {
-        requestContextController.activate(); // start a request scope in order to inject request scoped repositories
-
         User user1 = new User(1L, "User", "One", LocalDate.of(1999, 9, 9),
                 "admin", "admin", Role.USER, "calvian.png", getResourceAsByteArray("avatar/calvian.png"));
         userService.create(user1);
@@ -48,7 +52,7 @@ public class DataInitializer {
                 "admin", "admin", Role.USER, "uhlbrecht.png", getResourceAsByteArray("avatar/uhlbrecht.png"));
         userService.create(user2);
         User user3 = new User(3L, "User", "Three", LocalDate.of(1998, 12, 12),
-                "admin", "admin", Role.USER, "eloise.png", getResourceAsByteArray("avatar/eloise.png"));
+                "admin", "admin", Role.ADMIN, "eloise.png", getResourceAsByteArray("avatar/eloise.png"));
         userService.create(user3);
         User user4 = new User(4L, "User", "Four", LocalDate.of(2000, 2, 24),
                 "admin", "admin", Role.USER, "zereni.png", getResourceAsByteArray("avatar/zereni.png"));
@@ -71,8 +75,6 @@ public class DataInitializer {
         presentWrapperService.create(new PresentWrapper(6L, Present.PLAYSTATION, santaClaus3, user3, "for son", 2499.99));
         presentWrapperService.create(new PresentWrapper(7L, Present.BALL, santaClaus4, user4, "for son", 99.49));
         presentWrapperService.create(new PresentWrapper(8L, Present.CAR, santaClaus4, user4, "for dad", 99999.99));
-
-        requestContextController.deactivate();
     }
 
     @SneakyThrows

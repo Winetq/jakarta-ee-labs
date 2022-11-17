@@ -2,13 +2,17 @@ package jakarta.ee.present;
 
 import jakarta.ee.repository.Repository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@RequestScoped
+/**
+ * There is no need for defining request scoped as repositories will be injected only to EJB beans which by design
+ * are not shared across different threads.
+ */
+@Dependent
 public class PresentWrapperRepository implements Repository<PresentWrapper, Long> {
 
     private EntityManager em;

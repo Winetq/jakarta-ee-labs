@@ -4,7 +4,7 @@ import jakarta.ee.santaclaus.dto.GetSantaClausResponse;
 import jakarta.ee.santaclaus.dto.PostSantaClausRequest;
 import jakarta.ee.santaclaus.dto.PutSantaClausRequest;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -21,7 +21,7 @@ public class SantaClausController {
      */
     public SantaClausController() {}
 
-    @Inject
+    @EJB
     public void setService(SantaClausService service) {
         this.service = service;
     }

@@ -2,14 +2,18 @@ package jakarta.ee.santaclaus;
 
 import jakarta.ee.repository.Repository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@RequestScoped
+/**
+ * There is no need for defining request scoped as repositories will be injected only to EJB beans which by design
+ * are not shared across different threads.
+ */
+@Dependent
 public class SantaClausRepository implements Repository<SantaClaus, Long> {
 
     private EntityManager em;

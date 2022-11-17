@@ -4,13 +4,14 @@ import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.santaclaus.SantaClausRepository;
 import lombok.NoArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 @NoArgsConstructor
 public class PresentWrapperService {
 
@@ -41,17 +42,14 @@ public class PresentWrapperService {
         return Optional.empty();
     }
 
-    @Transactional
     public void create(PresentWrapper present) {
         presentWrapperRepository.create(present);
     }
 
-    @Transactional
     public void delete(PresentWrapper present) {
         presentWrapperRepository.delete(present);
     }
 
-    @Transactional
     public void update(PresentWrapper present) {
         presentWrapperRepository.update(present);
     }

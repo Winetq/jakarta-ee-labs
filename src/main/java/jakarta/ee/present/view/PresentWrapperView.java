@@ -5,9 +5,9 @@ import jakarta.ee.present.PresentWrapperService;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Named
 public class PresentWrapperView implements Serializable {
 
-    private final PresentWrapperService service;
+    private PresentWrapperService service;
 
     @Getter
     private PresentWrapper present;
@@ -27,8 +27,10 @@ public class PresentWrapperView implements Serializable {
     @Getter
     private Long id;
 
-    @Inject
-    public PresentWrapperView(PresentWrapperService service) {
+    public PresentWrapperView() {}
+
+    @EJB
+    public void setService(PresentWrapperService service) {
         this.service = service;
     }
 

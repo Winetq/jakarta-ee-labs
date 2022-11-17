@@ -3,7 +3,7 @@ package jakarta.ee.user;
 import jakarta.ee.user.dto.GetUserResponse;
 import jakarta.ee.user.dto.PostUserRequest;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,7 +20,7 @@ public class UserController {
      */
     public UserController() {}
 
-    @Inject
+    @EJB
     public void setService(UserService service) {
         this.service = service;
     }

@@ -5,7 +5,7 @@ import jakarta.ee.present.dto.PresentWrapperRequest;
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.santaclaus.SantaClausService;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,12 +24,12 @@ public class PresentWrapperController {
      */
     public PresentWrapperController() {}
 
-    @Inject
+    @EJB
     public void setPresentWrapperService(PresentWrapperService presentWrapperService) {
         this.presentWrapperService = presentWrapperService;
     }
 
-    @Inject
+    @EJB
     public void setSantaClausService(SantaClausService santaClausService) {
         this.santaClausService = santaClausService;
     }

@@ -2,15 +2,16 @@ package jakarta.ee.user;
 
 import lombok.NoArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 @NoArgsConstructor
 public class UserService {
 
@@ -29,12 +30,10 @@ public class UserService {
         return repository.findAll();
     }
 
-    @Transactional
     public void create(User user) {
         repository.create(user);
     }
 
-    @Transactional
     public void updateUserAvatar(User user, String updatedFileName, byte[] updatedAvatar) {
         repository.update(User.builder()
                 .id(user.getId())
@@ -50,7 +49,6 @@ public class UserService {
         );
     }
 
-    @Transactional
     public void updateUserAvatar(User user, Part avatar) {
         if (avatar != null && !avatar.getSubmittedFileName().isEmpty()) {
             try {

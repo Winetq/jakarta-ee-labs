@@ -8,9 +8,9 @@ import jakarta.ee.santaclaus.SantaClausService;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,9 +22,9 @@ import java.util.Optional;
 @Named
 public class PresentWrapperEdit implements Serializable {
 
-    private final PresentWrapperService presentWrapperService;
+    private PresentWrapperService presentWrapperService;
 
-    private final SantaClausService santaClausService;
+    private SantaClausService santaClausService;
 
     private PresentWrapper present;
 
@@ -35,9 +35,15 @@ public class PresentWrapperEdit implements Serializable {
     @Getter
     private Long id;
 
-    @Inject
-    public PresentWrapperEdit(PresentWrapperService presentWrapperService, SantaClausService santaClausService) {
+    public PresentWrapperEdit() {}
+
+    @EJB
+    public void setPresentWrapperService(PresentWrapperService presentWrapperService) {
         this.presentWrapperService = presentWrapperService;
+    }
+
+    @EJB
+    public void setSantaClausService(SantaClausService santaClausService) {
         this.santaClausService = santaClausService;
     }
 

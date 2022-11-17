@@ -3,14 +3,15 @@ package jakarta.ee.santaclaus;
 import jakarta.ee.present.PresentWrapperRepository;
 import lombok.NoArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
+@Stateless
+@LocalBean
 @NoArgsConstructor
 public class SantaClausService {
 
@@ -40,18 +41,15 @@ public class SantaClausService {
         return santaClausRepository.findAll();
     }
 
-    @Transactional
     public void create(SantaClaus santaClaus) {
         santaClausRepository.create(santaClaus);
     }
 
-    @Transactional
     public void delete(SantaClaus santaClaus) {
         presentWrapperRepository.findAllBySantaClausId(santaClaus.getId()).forEach(presentWrapper -> presentWrapperRepository.delete(presentWrapper));
         santaClausRepository.delete(santaClaus);
     }
 
-    @Transactional
     public void update(SantaClaus santaClaus) {
         santaClausRepository.update(santaClaus);
     }
