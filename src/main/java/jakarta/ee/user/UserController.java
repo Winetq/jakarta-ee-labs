@@ -56,7 +56,7 @@ public class UserController {
                 request.getBirthday(),
                 request.getLogin(),
                 request.getPassword(),
-                request.getRole(),
+                request.getUserRoles(),
                 "",
                 new byte[0]
         ));

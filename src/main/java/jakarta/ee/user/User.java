@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Getter
@@ -26,8 +27,10 @@ public class User {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> userRoles;
 
     @Setter
     private String avatarFileName;

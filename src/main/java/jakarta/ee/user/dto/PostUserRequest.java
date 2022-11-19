@@ -1,12 +1,12 @@
 package jakarta.ee.user.dto;
 
-import jakarta.ee.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,5 +18,5 @@ public class PostUserRequest {
     private LocalDate birthday;
     private String login;
     private String password;
-    private Role role;
+    private List<String> userRoles;
 }

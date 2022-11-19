@@ -1,6 +1,5 @@
 package jakarta.ee.user.dto;
 
-import jakarta.ee.user.Role;
 import jakarta.ee.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class GetUserResponse {
     private final String surname;
     private final LocalDate birthday;
     private final String login;
-    private final Role role;
+    private final List<String> userRoles;
 
     public static Function<User, GetUserResponse> entityToDtoMapper() {
         return user -> GetUserResponse.builder()
@@ -31,7 +30,7 @@ public class GetUserResponse {
                 .surname(user.getSurname())
                 .birthday(user.getBirthday())
                 .login(user.getLogin())
-                .role(user.getRole())
+                .userRoles(user.getUserRoles())
                 .build();
     }
 

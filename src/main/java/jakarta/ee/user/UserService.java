@@ -42,7 +42,7 @@ public class UserService {
                 .birthday(user.getBirthday())
                 .login(user.getLogin())
                 .password(user.getPassword())
-                .role(user.getRole())
+                .userRoles(user.getUserRoles())
                 .avatarFileName(updatedFileName)
                 .avatar(updatedAvatar)
                 .build()
