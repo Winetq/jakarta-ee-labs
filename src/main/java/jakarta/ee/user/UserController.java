@@ -4,6 +4,8 @@ import jakarta.ee.user.dto.GetUserResponse;
 import jakarta.ee.user.dto.PostUserRequest;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -23,6 +25,13 @@ public class UserController {
     @EJB
     public void setService(UserService service) {
         this.service = service;
+    }
+
+    private Pbkdf2PasswordHash pbkdf;
+
+    @Inject
+    public void setPbkdf(Pbkdf2PasswordHash pbkdf) {
+        this.pbkdf = pbkdf;
     }
 
     @GET
@@ -55,7 +64,7 @@ public class UserController {
                 request.getSurname(),
                 request.getBirthday(),
                 request.getLogin(),
-                request.getPassword(),
+                pbkdf.generate(request.getPassword().toCharArray()),
                 request.getUserRoles(),
                 "",
                 new byte[0]

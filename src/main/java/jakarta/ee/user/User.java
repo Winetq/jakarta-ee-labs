@@ -23,11 +23,12 @@ public class User {
 
     private LocalDate birthday;
 
+    @Column(nullable = false, unique = true)
     private String login;
 
     private String password;
 
-    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user"))
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user", referencedColumnName = "login"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> userRoles;

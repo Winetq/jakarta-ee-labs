@@ -3,7 +3,9 @@ package jakarta.ee.santaclaus;
 import jakarta.ee.santaclaus.dto.GetSantaClausResponse;
 import jakarta.ee.santaclaus.dto.PostSantaClausRequest;
 import jakarta.ee.santaclaus.dto.PutSantaClausRequest;
+import jakarta.ee.user.UserRoleType;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Path("/santaclauses")
+@RolesAllowed(UserRoleType.USER)
 public class SantaClausController {
 
     private SantaClausService service;
@@ -50,6 +53,7 @@ public class SantaClausController {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(UserRoleType.ADMIN)
     public Response deleteSantaClaus(@PathParam("id") Long id) {
         Optional<SantaClaus> santaClaus = service.find(id);
         if (santaClaus.isPresent()) {
@@ -73,6 +77,7 @@ public class SantaClausController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed(UserRoleType.ADMIN)
     public Response createSantaClaus(PostSantaClausRequest request) {
         service.create(new SantaClaus(
                 getMaxId(service.findAll()) + 1,

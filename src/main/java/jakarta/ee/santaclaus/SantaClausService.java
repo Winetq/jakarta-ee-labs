@@ -1,8 +1,10 @@
 package jakarta.ee.santaclaus;
 
 import jakarta.ee.present.PresentWrapperRepository;
+import jakarta.ee.user.UserRoleType;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @Stateless
 @LocalBean
 @NoArgsConstructor
+@RolesAllowed(UserRoleType.USER)
 public class SantaClausService {
 
     private SantaClausRepository santaClausRepository;
@@ -41,10 +44,12 @@ public class SantaClausService {
         return santaClausRepository.findAll();
     }
 
+    @RolesAllowed(UserRoleType.ADMIN)
     public void create(SantaClaus santaClaus) {
         santaClausRepository.create(santaClaus);
     }
 
+    @RolesAllowed(UserRoleType.ADMIN)
     public void delete(SantaClaus santaClaus) {
         presentWrapperRepository.findAllBySantaClausId(santaClaus.getId()).forEach(presentWrapper -> presentWrapperRepository.delete(presentWrapper));
         santaClausRepository.delete(santaClaus);
