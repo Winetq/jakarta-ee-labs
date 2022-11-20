@@ -39,7 +39,6 @@ public class SantaClausService {
         }
     }
 
-    @RolesAllowed(UserRoleType.ADMIN)
     public List<SantaClaus> findAll() {
         return santaClausRepository.findAll();
     }
