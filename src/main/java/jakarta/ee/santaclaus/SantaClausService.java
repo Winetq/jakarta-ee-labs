@@ -15,7 +15,6 @@ import java.util.Optional;
 @Stateless
 @LocalBean
 @NoArgsConstructor
-@RolesAllowed(UserRoleType.USER)
 public class SantaClausService {
 
     private SantaClausRepository santaClausRepository;
@@ -40,6 +39,7 @@ public class SantaClausService {
         }
     }
 
+    @RolesAllowed(UserRoleType.ADMIN)
     public List<SantaClaus> findAll() {
         return santaClausRepository.findAll();
     }

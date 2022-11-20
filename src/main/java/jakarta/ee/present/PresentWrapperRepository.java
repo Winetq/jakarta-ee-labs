@@ -38,6 +38,12 @@ public class PresentWrapperRepository implements Repository<PresentWrapper, Long
                 .getResultList();
     }
 
+    public List<PresentWrapper> findAllByUserId(Long userId) {
+        return em.createQuery("select pw from PresentWrapper pw where pw.user.id = :userId", PresentWrapper.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
     @Override
     public void create(PresentWrapper entity) {
         em.persist(entity);

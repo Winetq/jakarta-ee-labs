@@ -2,6 +2,8 @@ package jakarta.ee.present;
 
 import jakarta.ee.santaclaus.SantaClaus;
 import jakarta.ee.santaclaus.SantaClausRepository;
+import jakarta.ee.user.User;
+import jakarta.ee.user.UserRepository;
 import lombok.NoArgsConstructor;
 
 import javax.ejb.LocalBean;
@@ -19,11 +21,15 @@ public class PresentWrapperService {
 
     private SantaClausRepository santaClausRepository;
 
+    private UserRepository userRepository;
+
     @Inject
     public PresentWrapperService(PresentWrapperRepository presentWrapperRepository,
-                                 SantaClausRepository santaClausRepository) {
+                                 SantaClausRepository santaClausRepository,
+                                 UserRepository userRepository) {
         this.presentWrapperRepository = presentWrapperRepository;
         this.santaClausRepository = santaClausRepository;
+        this.userRepository = userRepository;
     }
 
     public Optional<PresentWrapper> find(Long id) {
@@ -38,6 +44,14 @@ public class PresentWrapperService {
         Optional<SantaClaus> santaClaus = santaClausRepository.find(santaClausId);
         if (santaClaus.isPresent()) {
             return Optional.of(presentWrapperRepository.findAllBySantaClausId(santaClausId));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<List<PresentWrapper>> findAllByUserId(Long userId) {
+        Optional<User> user = userRepository.find(userId);
+        if (user.isPresent()) {
+            return Optional.of(presentWrapperRepository.findAllByUserId(userId));
         }
         return Optional.empty();
     }

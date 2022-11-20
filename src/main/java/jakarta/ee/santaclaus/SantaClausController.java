@@ -31,6 +31,7 @@ public class SantaClausController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(UserRoleType.ADMIN)
     public Response getSantaClauses() {
         return Response
                 .ok(GetSantaClausResponse.entitiesToDtoMapper().apply(service.findAll()))
