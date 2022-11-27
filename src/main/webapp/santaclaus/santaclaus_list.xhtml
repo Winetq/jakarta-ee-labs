@@ -9,25 +9,28 @@
         <h:panelGroup layout="block">
             <article class="text--justified">
                 <header><h2>Santa Clauses</h2></header>
-                <h:dataTable value="#{santaClausList.santaClauses}" var="santaClaus" styleClass="data-table">
-                    <h:column>
-                        <f:facet name="header">name</f:facet>
-                        <h:outputText value="#{santaClaus.name}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">view</f:facet>
-                        <h:link outcome="/santaclaus/santaclaus_view.xhtml" value="view">
-                            <f:param name="id" value="#{santaClaus.id}"/>
-                        </h:link>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">delete</f:facet>
-                        <h:form>
+                <h:form id="santaClausesForm">
+                    <h:dataTable id="santaClausesTable" value="#{santaClausList.santaClauses}" var="santaClaus"
+                                 styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">name</f:facet>
+                            <h:outputText value="#{santaClaus.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">view</f:facet>
+                            <h:link outcome="/santaclaus/santaclaus_view.xhtml" value="view">
+                                <f:param name="id" value="#{santaClaus.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">delete</f:facet>
                             <h:commandButton styleClass="ui-button ui-control" value="delete"
-                                             action="#{santaClausList.deleteAction(santaClaus)}"/>
-                        </h:form>
-                    </h:column>
-                </h:dataTable>
+                                                 action="#{santaClausList.deleteAction(santaClaus)}">
+                                <f:ajax execute="@this" render=":santaClausesForm:santaClausesTable"/>
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </article>
         </h:panelGroup>
     </ui:define>

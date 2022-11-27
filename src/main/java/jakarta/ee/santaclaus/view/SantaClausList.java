@@ -23,14 +23,10 @@ public class SantaClausList implements Serializable {
     }
 
     public List<SantaClaus> getSantaClauses() {
-        if (santaClauses == null) {
-            santaClauses = service.findAll();
-        }
-        return santaClauses;
+        return service.findAll();
     }
 
-    public String deleteAction(SantaClaus santaClaus) {
+    public void deleteAction(SantaClaus santaClaus) {
         service.delete(santaClaus);
-        return "santaclaus_list?faces-redirect=true";
     }
 }

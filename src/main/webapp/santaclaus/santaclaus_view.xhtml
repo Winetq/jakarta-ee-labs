@@ -21,31 +21,34 @@
                     <div>
                         Elves: <h:outputText value="#{santaClausView.santaClaus.elves}"/>
                     </div>
-                    <h:dataTable value="#{santaClausView.santaClausPresents}" var="present" styleClass="data-table">
-                        <h:column>
-                            <f:facet name="header">present</f:facet>
-                            <h:outputText value="#{present.present}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">view</f:facet>
-                            <h:link outcome="/present/present_view.xhtml" value="view">
-                                <f:param name="id" value="#{present.id}"/>
-                            </h:link>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">edit</f:facet>
-                            <h:link outcome="/present/present_edit.xhtml" value="edit">
-                                <f:param name="id" value="#{present.id}"/>
-                            </h:link>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">delete</f:facet>
-                            <h:form>
+                    <h:form id="presentsForm">
+                        <h:dataTable id="presentsTable" value="#{santaClausView.santaClausPresents}" var="present"
+                                     styleClass="data-table">
+                            <h:column>
+                                <f:facet name="header">present</f:facet>
+                                <h:outputText value="#{present.present}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">view</f:facet>
+                                <h:link outcome="/present/present_view.xhtml" value="view">
+                                    <f:param name="id" value="#{present.id}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">edit</f:facet>
+                                <h:link outcome="/present/present_edit.xhtml" value="edit">
+                                    <f:param name="id" value="#{present.id}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">delete</f:facet>
                                 <h:commandButton styleClass="ui-button ui-control" value="delete"
-                                                 action="#{santaClausView.deleteAction(present)}"/>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
+                                                     action="#{santaClausView.deleteAction(present)}">
+                                    <f:ajax execute="@this" render=":presentsForm:presentsTable"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                     <h:button styleClass="ui-button ui-control" outcome="/santaclaus/present_create.xhtml" value="Create a new present!">
                         <f:param name="id" value="#{santaClausView.id}"/>
                     </h:button>

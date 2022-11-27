@@ -57,8 +57,7 @@ public class SantaClausView implements Serializable {
         return presentWrapperService.findAllBySantaClausId(santaClaus.getId()).orElse(new ArrayList<>());
     }
 
-    public String deleteAction(PresentWrapper present) {
+    public void deleteAction(PresentWrapper present) {
         presentWrapperService.delete(present);
-        return "santaclaus_view.xhtml?id=" + id + "&faces-redirect=true";
     }
 }
