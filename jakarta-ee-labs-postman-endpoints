@@ -1,0 +1,864 @@
+{
+	"info": {
+		"_postman_id": "58eaa724-ddab-4e87-aa31-8fb2b763cae0",
+		"name": "jakarta-ee-labs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserController",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"surname\": \"test\",\r\n    \"birthday\": \"1989-09-09\",\r\n    \"login\": \"test\",\r\n    \"password\": \"test\",\r\n    \"userRoles\": [\"user\", \"admin\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserAvatarServlet",
+			"item": [
+				{
+					"name": "Get User Avatar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Avatar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put User Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/gabuc/OneDrive/Pulpit/the last dance/Narzędzia i Aplikacje Java EE/laboratorium/OlivyrTowerfall.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post User Avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/gabuc/OneDrive/Pulpit/the last dance/Narzędzia i Aplikacje Java EE/laboratorium/RisaBenak.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SantaClausController",
+			"item": [
+				{
+					"name": "Get Santa Clauses",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Santa Claus",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Santa Claus",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Santa Claus",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moveSpeed\": 0.5,\r\n    \"elves\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Santa Claus",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"moveSpeed\": 2.75,\r\n    \"elves\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SantaClausPresentsController",
+			"item": [
+				{
+					"name": "Get Santa Claus Presents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/3/presents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"3",
+								"presents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Santa Claus Present",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/3/presents/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"3",
+								"presents",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Santa Claus Present",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/3/presents/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"3",
+								"presents",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Santa Claus Present",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"present\": \"XBOX\",\r\n    \"dedication\": \"for son\",\r\n    \"price\": 3000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/3/presents/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"3",
+								"presents",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Santa Claus Present",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"present\": \"BOOK\",\r\n    \"dedication\": \"for son\",\r\n    \"price\": 99.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/santaclauses/3/presents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"santaclauses",
+								"3",
+								"presents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PresentWrapperController",
+			"item": [
+				{
+					"name": "Get Presents",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/presents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"presents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Present",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/presents/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"presents",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Present",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/presents/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"presents",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Present",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"present\": \"CAR\",\r\n    \"dedication\": \"for mom\",\r\n    \"price\": 9999.99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/presents/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"presents",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserPresentsController",
+			"item": [
+				{
+					"name": "Get User Presents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/2/presents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"2",
+								"presents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Present",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/4/presents/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"4",
+								"presents",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Present",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/4/presents/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"4",
+								"presents",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put User Present",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"present\": \"STICK\",\r\n    \"dedication\": \"for sister\",\r\n    \"price\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/4/presents/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"4",
+								"presents",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post User Present",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "user1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user1",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"present\": \"BALL\",\r\n    \"dedication\": \"for son\",\r\n    \"price\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/2/presents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"2",
+								"presents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
