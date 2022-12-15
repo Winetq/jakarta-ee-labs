@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "58eaa724-ddab-4e87-aa31-8fb2b763cae0",
+		"name": "jakarta-ee-labs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserServlet",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserAvatarServlet",
+			"item": [
+				{
+					"name": "Get User Avatar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Avatar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put User Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/gabuc/OneDrive/Pulpit/the last dance/Narzędzia i Aplikacje Java EE/laboratorium/OlivyrTowerfall.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post User Avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/gabuc/OneDrive/Pulpit/the last dance/Narzędzia i Aplikacje Java EE/laboratorium/RisaBenak.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9080/jakarta-ee-labs/api/avatars/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"jakarta-ee-labs",
+								"api",
+								"avatars",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
